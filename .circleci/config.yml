@@ -1,0 +1,23 @@
+version: 2.1
+
+jobs:
+  build:
+      - image: 'circleci/node:16.13.1-bullseye-browsers-legacy'
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies and build project
+          command: yarn install && yarn run build-only
+      - run:
+          name: Test and coverage
+          command: yarn run test:unit --coverage
+      - sonarcloud/scan
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud
