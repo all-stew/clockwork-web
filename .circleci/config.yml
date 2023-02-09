@@ -11,7 +11,7 @@ jobs:
           command: yarn install && yarn run build-only
       - run:
           name: Test and coverage
-          command: yarn run test:unit --coverage
+          command: yarn run test:unit:coverage
       - sonarcloud/scan
 
 orbs:
